@@ -11,16 +11,11 @@ import { isAuthenticated } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-// Routes that do not require authentication
 router.get("/getall", getAllJobs);
-router.get("/:id", getSingleJob);
-
-// Routes that require authentication
-router.use(isAuthenticated);
-
-router.post("/post", postJob);
-router.get("/getmyjobs", getMyJobs);
-router.put("/update/:id", updateJob);
-router.delete("/delete/:id", deleteJob);
+router.post("/post", isAuthenticated, postJob);
+router.get("/getmyjobs", isAuthenticated, getMyJobs);
+router.put("/update/:id", isAuthenticated, updateJob);
+router.delete("/delete/:id", isAuthenticated, deleteJob);
+router.get("/:id", isAuthenticated, getSingleJob);
 
 export default router;
